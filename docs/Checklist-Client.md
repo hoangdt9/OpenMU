@@ -35,7 +35,7 @@
 ### 0.5 Repo mobile MU client để fork/mua
 
 - [ ] Ưu tiên fork thử nghiệm:
-  - [ ] `bernatvadell/muonline` (MonoGame, active, đa nền tảng): https://github.com/bernatvadell/muonline
+  - [x] `bernatvadell/muonline` (MonoGame, active, đa nền tảng): https://github.com/bernatvadell/muonline
   - [ ] `afrokick/UniMU` (Unity, cũ nhưng gần OpenMU): https://github.com/afrokick/UniMU
 - [ ] Hướng web/mobile bổ sung:
   - [ ] `afrokick/muonlinejs` (Babylon.js + proxy): https://github.com/afrokick/muonlinejs
@@ -43,8 +43,49 @@
   - [ ] Đánh giá Unity Asset Store MMORPG kits (license + customization cost + legal risk).
   - [ ] Chỉ dùng nguồn có license rõ ràng, tránh source leak/warez.
 - [ ] Quyết định fork chính thức hôm nay:
-  - [ ] **Fork chính:** `bernatvadell/muonline`
-  - [ ] Chạy theo: `docs/Day0-Fork-Bootstrap-Client.md`
+  - [x] **Fork chính:** `bernatvadell/muonline`
+  - [x] Chạy theo: `docs/Day0-Fork-Bootstrap-Client.md`
+
+### 0.6 Bootstrap status thực tế (macOS arm64 - 2026-04-23)
+
+- [x] Đã clone/fork local tại: `/Users/admin/Project/GitHub/muonline`
+- [x] Đã cấu hình remote:
+  - [x] `origin`: `https://github.com/hoangdt9/muonline.git`
+  - [x] `upstream`: `https://github.com/bernatvadell/muonline.git`
+- [x] Đã xác nhận toolchain:
+  - [x] `.NET SDK`: `10.0.202`
+  - [x] `Xcode CLI tools`: `/Applications/Xcode.app/Contents/Developer`
+- [x] Đã chạy `dotnet tool restore`
+- [x] Đã chạy `dotnet workload restore` cho Android/iOS
+- [x] Build head pass trên máy local
+  - [x] `MuLinux`: build pass (Debug).
+  - [x] `MuAndroid`: build pass (Debug) sau khi hoàn tất setup MGFXC/Wine.
+  - [x] `MuIos`: build pass (Debug) sau khi cập nhật minimum iOS version theo yêu cầu .NET 10 SDK.
+
+#### Blockers cần xử lý để tiếp tục dev mobile
+
+- [x] Cài Wine theo cách interactive có quyền sudo (terminal local của dev):
+  - [x] `brew install --cask wine-stable` (đã cài thành công kèm `gstreamer-runtime`).
+  - [x] Cài Rosetta 2 (nếu chưa có): `softwareupdate --install-rosetta --agree-to-license`
+- [x] Cấu hình MGFXC qua Wine prefix:
+  - [x] Tạo wine prefix 64-bit.
+  - [x] Cài `d3dcompiler_47` (winetricks).
+  - [x] Cài .NET 8 trong wine prefix.
+  - [x] Set env `MGFXC_WINE_PATH` trỏ vào wine prefix hợp lệ.
+- [x] Bổ sung thư viện `FreeImage` tương thích `arm64` cho MonoGame content pipeline.
+- [x] Chạy lại smoke build sau khi xử lý blockers:
+  - [x] `dotnet build ./MuAndroid/MuAndroid.csproj -c Debug` (pass).
+  - [x] `dotnet build ./MuIos/MuIos.csproj -c Debug` (pass).
+  - [x] `dotnet build ./MuLinux/MuLinux.csproj -c Debug` (pass).
+  - [ ] Cải thiện warning Java cho Android (`XA0033` do đang dùng Java 24; cân nhắc JDK 17/21 cho toolchain ổn định hơn).
+
+#### Cấu hình môi trường đang dùng để build pass (tham chiếu nhanh)
+
+- [x] Export biến môi trường trước khi build:
+  - [x] `export MGFXC_WINE_PATH="$HOME/.wine-mgfxc"`
+  - [x] `export WINEPREFIX="$HOME/.wine-mgfxc"`
+  - [x] `export WINEDEBUG=-all`
+- [x] Tạo shim `wine64` -> `wine` trong `/opt/homebrew/bin` (MGFXC yêu cầu lệnh `wine64`).
 
 ## 1) Technical Direction
 

@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../muonline"
+		},
+		{
+			"path": "../../mu-takumi"
+		}
+	],
+	"settings": {}
+}

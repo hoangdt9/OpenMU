@@ -168,6 +168,9 @@ progress of the project. See also:
 * [Checklist - Client Engineer](Checklist-Client.md):
   Role-based execution checklist for Unity/MonoGame and mobile optimization
 
+* [Day 0 - Fork & Bootstrap Client](Day0-Fork-Bootstrap-Client.md):
+  Hands-on bootstrap checklist for `bernatvadell/muonline` fork on local dev machines
+
 * [Checklist - DevOps/Platform Engineer](Checklist-DevOps.md):
   Role-based execution checklist for CI/CD, observability and operations
 

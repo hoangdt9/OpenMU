@@ -13,6 +13,7 @@ services:
   openmu-startup:
     image: munique/openmu
     container_name: openmu-startup
+    command: ["-autostart", "-resolveIP:loopback"]
     ports:
       - "8080"
       - "55901:55901"
@@ -20,13 +21,14 @@ services:
       - "55903:55903"
       - "55904:55904"
       - "55905:55905"
-      - "55906:55906"
+      - "55916:55906"
       - "44405:44405"
       - "44406:44406"
       - "55980:55980"
     environment:
       DB_HOST: database
       ASPNETCORE_URLS: http://+:8080
+      RESOLVE_IP: loopback
     working_dir: /app/
     volumes:
       - ./.htpasswd:/etc/nginx/.htpasswd
