@@ -1,0 +1,61 @@
+# OpenMU stack isolated for Takumi work: separate Postgres DB + optional ConnectionSettings mount.
+# Does not share volumes or DB name with deploy/all-in-one.
+#
+# Host port offsets avoid clashing with a default all-in-one stack on the same machine.
+# Adjust mappings if these ports are taken.
+
+name: takumi-openmu
+
+services:
+  nginx-80:
+    image: nginx:alpine
+    container_name: takumi-openmu-nginx
+    ports:
+      - "9180:80"
+    volumes:
+      - ../all-in-one/nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd
+    depends_on:
+      - openmu-startup
+
+  openmu-startup:
+    image: munique/openmu:latest
+    container_name: takumi-openmu-startup
+    ports:
+      - "8080"
+      - "56001:55901"
+      - "56002:55902"
+      - "56003:55903"
+      - "56004:55904"
+      - "56005:55905"
+      - "56006:55906"
+      - "44505:44405"
+      - "44506:44406"
+      - "56080:55980"
+    environment:
+      DB_HOST: database
+      # When using an image built from this repo with the DB_NAME patch, this selects the database:
+      DB_NAME: openmu_takumi
+    working_dir: /app/
+    volumes:
+      - ./.htpasswd:/etc/nginx/.htpasswd
+      # Ensures correct DB name with current Docker Hub images (overrides embedded ConnectionSettings.xml):
+      - ./ConnectionSettings.takumi.xml:/app/ConnectionSettings.xml:ro
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    container_name: takumi-openmu-db
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: openmu_takumi
+      POSTGRES_USER: postgres
+    ports:
+      - "54434:5432"
+    volumes:
+      - takumi_openmu_dbdata:/var/lib/postgresql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  takumi_openmu_dbdata:

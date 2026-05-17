@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="MUnique">
+// <copyright file="Program.cs" company="MUnique">
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
 
@@ -21,6 +21,7 @@ using MUnique.OpenMU.DataModel.Configuration;
 using MUnique.OpenMU.FriendServer;
 using MUnique.OpenMU.GameLogic;
 using MUnique.OpenMU.GuildServer;
+using MUnique.OpenMU.Takumi;
 using MUnique.OpenMU.Interfaces;
 using MUnique.OpenMU.LoginServer;
 using MUnique.OpenMU.Network;
@@ -233,6 +234,7 @@ internal sealed class Program : IDisposable
     {
         // Ensure GameLogic and GameServer Assemblies are loaded
         _ = GameLogic.Rand.NextInt(1, 2);
+        _ = typeof(TakumiAssembly);
         _ = DataInitialization.Id;
         _ = OpenMU.GameServer.ClientVersionResolver.DefaultVersion;
 

@@ -55,6 +55,10 @@ requests and he will redirect to the correct website.
   down
 * It's a more or less self-contained system which is harder to extend
 
+## Takumi — isolated database (fork / experimentation)
+
+The [takumi-openmu deployment](/deploy/takumi-openmu/) runs OpenMU against a **separate PostgreSQL database** (`openmu_takumi`) and uses offset host ports so it can sit beside the default all-in-one stack. Use it when you want Docker isolation without sharing the same DB volume or name.
+
 ## Distributed
 
 *!!! CURRENTLY BROKEN AND UNSUPPORTED, DOCS ARE OUT OF DATE !!!*

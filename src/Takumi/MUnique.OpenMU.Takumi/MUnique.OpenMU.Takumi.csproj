@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable;CS4014;VSTHRD110;VSTHRD100</WarningsAsErrors>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>MUnique.OpenMU.Takumi</RootNamespace>
+    <AssemblyName>MUnique.OpenMU.Takumi</AssemblyName>
+    <Description>Takumi-specific extensions for OpenMU (plugins, protocol adapters, persistence helpers). Keeps fork-specific code out of core libraries.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <DocumentationFile>..\..\..\bin\Debug\MUnique.OpenMU.Takumi.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <DocumentationFile>..\..\..\bin\Release\MUnique.OpenMU.Takumi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!-- Add references when implementing plugins (GameLogic, GameServer), packet handlers (GameServer), or network helpers (Network). -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\GameLogic\MUnique.OpenMU.GameLogic.csproj" />
+    <ProjectReference Include="..\..\PlugIns\MUnique.OpenMU.PlugIns.csproj" />
+  </ItemGroup>
+
+</Project>
