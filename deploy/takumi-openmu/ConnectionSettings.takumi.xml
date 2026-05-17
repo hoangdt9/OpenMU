@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Same as src/Persistence/EntityFramework/ConnectionSettings.xml but Database=openmu_takumi.
+     Mount as /app/ConnectionSettings.xml when using the official Docker image (DB_NAME not baked in yet). -->
+<ConnectionSettings xmlns="http://www.munique.net/ConnectionSettings">
+  <Connections>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.EntityDataContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=postgres;Password=admin;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.TypedContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=postgres;Password=admin;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.ConfigurationContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=config;Password=config;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.AccountContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=account;Password=account;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.TradeContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=account;Password=account;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.FriendContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=friend;Password=friend;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+    <Connection>
+      <ContextTypeName>MUnique.OpenMU.Persistence.EntityFramework.GuildContext</ContextTypeName>
+      <ConnectionString>Server=localhost;Port=5432;User Id=guild;Password=guild;Database=openmu_takumi;Command Timeout=120;</ConnectionString>
+      <DatabaseEngine>Npgsql</DatabaseEngine>
+    </Connection>
+  </Connections>
+</ConnectionSettings>

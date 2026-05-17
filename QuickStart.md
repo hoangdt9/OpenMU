@@ -39,6 +39,7 @@ postgres database connection strings.
 | Name | Description         |
 |------|---------------------|
 | DB_HOST | The hostname of the database. If the local configuration file is still configured to use 'localhost', the value of this variable replaces it |
+| DB_NAME | Replaces the `Database=` segment in every connection string (use a dedicated PostgreSQL database name when running multiple OpenMU stacks). |
 | DB_ADMIN_USER | The user name of the postgres admin account. If the local configuration file is still configured to use 'postgres' for the user name of the admin (first entry in the ConnectionSettings.xml), the value of this variable replaces it. |
 | DB_ADMIN_PW | The password of the postgres admin account. If the local configuration file is still configured to use 'admin' for the user password of the admin (first entry in the ConnectionSettings.xml), the value of this variable replaces it. |
 

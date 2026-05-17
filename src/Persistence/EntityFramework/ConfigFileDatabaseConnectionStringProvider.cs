@@ -1,10 +1,11 @@
-﻿// <copyright file="ConfigFileDatabaseConnectionStringProvider.cs" company="MUnique">
+// <copyright file="ConfigFileDatabaseConnectionStringProvider.cs" company="MUnique">
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
 
 namespace MUnique.OpenMU.Persistence.EntityFramework;
 
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
@@ -13,11 +14,12 @@ using Microsoft.EntityFrameworkCore;
 /// <summary>
 /// Implementation of <see cref="IDatabaseConnectionSettingProvider"/> which takes the connection strings out of
 /// a configuration file, usually <c>ConnectionSettings.xml</c>.
-/// The settings can be influenced by the environment variables <c>DB_HOST</c>, <c>DB_ADMIN_USER</c> and <c>DB_ADMIN_PW</c>.
+/// The settings can be influenced by the environment variables <c>DB_HOST</c>, <c>DB_NAME</c>, <c>DB_ADMIN_USER</c> and <c>DB_ADMIN_PW</c>.
 /// </summary>
 public class ConfigFileDatabaseConnectionStringProvider : IDatabaseConnectionSettingProvider
 {
     private const string DbHostVariableName = "DB_HOST";
+    private const string DbNameVariableName = "DB_NAME";
     private const string DbAdminUserVariableName = "DB_ADMIN_USER";
     private const string DbAdminPasswordVariableName = "DB_ADMIN_PW";
 
@@ -132,6 +134,16 @@ public class ConfigFileDatabaseConnectionStringProvider : IDatabaseConnectionSet
             && !string.IsNullOrEmpty(dbHost))
         {
             setting.ConnectionString = setting.ConnectionString!.Replace("Server=localhost;", $"Server={dbHost};");
+        }
+
+        if (Environment.GetEnvironmentVariable(DbNameVariableName) is { } dbName
+            && !string.IsNullOrEmpty(dbName))
+        {
+            setting.ConnectionString = Regex.Replace(
+                setting.ConnectionString!,
+                @"Database=[^;]+;",
+                $"Database={dbName};",
+                RegexOptions.CultureInvariant);
         }
 
         if (setting.ConnectionString!.Contains("User Id=postgres;"))
