@@ -21,14 +21,16 @@ services:
   openmu-startup:
     image: munique/openmu:latest
     container_name: takumi-openmu-startup
+    command: ["-autostart", "-resolveIP:127.0.0.1"]
     ports:
       - "8080"
+      # 55901 on host is used by Takumi game-host — only offset that port.
       - "56001:55901"
-      - "56002:55902"
-      - "56003:55903"
-      - "56004:55904"
-      - "56005:55905"
-      - "56006:55906"
+      - "55902:55902"
+      - "55903:55903"
+      - "55904:55904"
+      - "55905:55905"
+      - "55906:55906"
       - "44505:44405"
       - "44506:44406"
       - "56080:55980"
